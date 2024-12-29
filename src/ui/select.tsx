@@ -16,7 +16,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProp>(({ value, options, ...p
                 >
                     {
                         options.map(ele =>
-                            <option value={ele} key={ele} className='uppercase'>
+                            <option value={ele} key={ele}>
                                 {ele}
                             </option>
                         )
