@@ -1,6 +1,6 @@
-export interface CustomType {
-    network: string;
-    token: string;
-    amount: number;
-    balance: number;
+export type CustomType = {
+    network?: string;
+    token?: string;
+    amount?: number;
+    balance?: number;
 }

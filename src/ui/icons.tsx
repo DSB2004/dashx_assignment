@@ -3,9 +3,9 @@ import { SiPolygon } from 'react-icons/si';
 import { FaBitcoin } from 'react-icons/fa';
 import { FaDollarSign } from 'react-icons/fa';
 
-export function RenderIcon(iconType: string) {
-    console.log(iconType)
-    switch (iconType.toLowerCase()) {
+export function RenderIcon(iconType?: string) {
+
+    switch (iconType?.toLowerCase() || "") {
         case 'ethereum':
             return <FaEthereum className='text-blue-600 w-4 h-4' />;
         case 'eth':
