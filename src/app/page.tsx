@@ -11,12 +11,12 @@ export default async function Home() {
   const data = {
     "from_network": "Polygon",
     "from_token": "WBTC",
-    "from_amount": "100",
+    "from_amount": 250,
     "from_balance": "1.2414",
     "from_total": "10,400,500",
     "to_network": "Ethereum",
     "to_token": "ETH",
-    "to_amount": "120",
+    "to_amount": 120,
     "to_balance": "1.4525",
     "to_total": "5,400,500",
   }

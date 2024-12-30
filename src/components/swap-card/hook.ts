@@ -6,8 +6,8 @@ import CardValidation, { CardFormData } from '@/lib/validator';
 
 
 export default function useHook() {
-    const [currentSection, setSection] = useState("swap");
-    const { register, handleSubmit, setValue, getFieldState, getValues, formState: { errors }, setError } = useForm<CardFormData>({
+    const [currentSection, setSection] = useState<"swap" | "buy" | "sell">("swap");
+    const { register, handleSubmit, setValue,getValues, formState: { errors }, setError } = useForm<CardFormData>({
         resolver: zodResolver(CardValidation),
     });
 
@@ -36,9 +36,11 @@ export default function useHook() {
     };
 
     const onSubmit = (data: CardFormData) => {
-        if (currentSection === 'swap') {
+
+        if (data.case === 'swap') {
             handleInterChange();
         } else {
+
             console.log(currentSection, data);
         }
     }

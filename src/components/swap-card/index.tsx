@@ -26,14 +26,15 @@ const SwapCard = ({ data }: { data?: CardFormData }) => {
         <div className="w-96 ">
 
             <div className="flex justify-around mb-2  bg-white  rounded-md  w-full">
-                <Button onClick={() => setSection('swap')} className={` w-1/3 text-sm  font-medium  ${currentSection === 'swap' ? 'bg-[#0B4AE1] text-white shadow-md' : ""}`}>Swap</Button>
-                <Button onClick={() => setSection('buy')} className={` w-1/3 text-sm font-medium  ${currentSection === 'buy' ? 'bg-[#0B4AE1] text-white shadow-md' : ""}`}>Buy</Button>
-                <Button onClick={() => setSection('sell')} className={` w-1/3 text-sm font-medium ${currentSection === 'sell' ? 'bg-[#0B4AE1] text-white shadow-md' : ""}`}>Sell</Button>
+                <Button onClick={() => { setValue('case', 'swap'); setSection('swap') }} className={` w-1/3 text-sm  font-medium  ${currentSection === 'swap' ? 'bg-[#0B4AE1] text-white shadow-md' : ""}`}>Swap</Button>
+                <Button onClick={() => { setValue('case', 'buy'); setSection('buy') }} className={` w-1/3 text-sm font-medium  ${currentSection === 'buy' ? 'bg-[#0B4AE1] text-white shadow-md' : ""}`}>Buy</Button>
+                <Button onClick={() => { setValue('case', 'sell'); setSection('sell') }} className={` w-1/3 text-sm font-medium ${currentSection === 'sell' ? 'bg-[#0B4AE1] text-white shadow-md' : ""}`}>Sell</Button>
             </div>
 
 
-            <form action="" className="" onSubmit={handleSubmit(onSubmit)}>
+            <form id="swap_card" action="" className="" onSubmit={handleSubmit(onSubmit)}>
 
+                <input type="text" className="hidden" {...register('case')} />
                 <div className=" bg-white p-3 w-full rounded-lg flex flex-col items-center gap-2 mb-2">
                     <div className=" border border-customGray rounded-2xl p-2.5 flex gap-2 flex-col w-full">
                         <Select
@@ -46,10 +47,13 @@ const SwapCard = ({ data }: { data?: CardFormData }) => {
                         <div className="flex items-center justify-between gap-2">
 
                             <Input
+                                autoComplete="off"
+                                spellCheck="false"
+                                type="number"
+                                min={0}
+
                                 error={errors.from_amount?.message}
                                 defaultValue={data?.from_amount}
-                                type="string"
-                                condition={getValues().from_amount === "250"}
 
                                 {...register('from_amount')}></Input>
                             <Select
@@ -72,9 +76,17 @@ const SwapCard = ({ data }: { data?: CardFormData }) => {
                         </div>
                     </div>
 
-                    <div className="flex gap-3 w-full items-center">
+                    <div className="flex gap-3 w-full items-center"
+                    >
                         <div className="border bg-gray-200 flex-1"></div>
-                        <CgArrowsExchangeV className=" border rounded-lg w-6 h-6 text-blue-500" />
+                        <CgArrowsExchangeV
+                            className=" border rounded-lg w-6 h-6 text-blue-500"
+                            onClick={() => {
+                                setValue("case", 'swap');
+                                handleSubmit(onSubmit)();
+                            }
+                            }
+                        />
                         <div className="border bg-gray-200 flex-1"></div>
                     </div>
 
@@ -91,9 +103,14 @@ const SwapCard = ({ data }: { data?: CardFormData }) => {
                         <div className="flex items-center justify-between gap-2">
 
                             <Input
+                                autoComplete="off"
+                                spellCheck="false"
+                                type="number"
+                                min={0}
                                 defaultValue={data?.to_amount}
                                 error={errors.to_amount?.message}
-                                condition={getValues().to_amount === "250"} {...register('to_amount')}></Input>
+
+                                {...register('to_amount')}></Input>
                             <Select
                                 error={errors.to_token?.message}
                                 changeFuntion={(value: string) => setValue('to_token', value)}
@@ -137,9 +154,15 @@ const SwapCard = ({ data }: { data?: CardFormData }) => {
                     </div>
                 </div>
 
-
-
-                <Button type="submit" className="w-full py-3 text-[#0B4AE1] bg-[#0B4AE14D]  rounded-lg font-semibold text-sm capitalize ">
+                <Button
+                    onClick={
+                        () => {
+                            setValue('case', currentSection);
+                            handleSubmit(onSubmit)()
+                        }
+                    }
+                    type="button"
+                    className="w-full py-3 text-[#0B4AE1] bg-[#0B4AE14D]  rounded-lg font-semibold text-sm capitalize ">
                     {currentSection}
                 </Button>
             </form>
